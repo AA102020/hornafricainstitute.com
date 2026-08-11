@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://hornafricainstitute.com/sitemap.xml

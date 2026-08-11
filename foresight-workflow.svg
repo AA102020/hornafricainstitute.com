@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 640" role="img" aria-labelledby="title desc">
+  <title id="title">Foresight Lab data-to-decision workflow</title>
+  <desc id="desc">Regional data and expert knowledge pass through validation and modeling to produce scenarios, warning indicators, maps, and decision support.</desc>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#6f9b7d"/></marker>
+  </defs>
+  <style>
+    .bg{fill:#f2f7f5}.node{fill:#fff;stroke:#86a99a;stroke-width:2}.core{fill:#0b332d;stroke:#0b332d}.output{fill:#e2f0e8;stroke:#6f9b7d;stroke-width:2}.line{fill:none;stroke:#6f9b7d;stroke-width:4;marker-end:url(#arrow)}.label{font:700 24px Arial,sans-serif;fill:#173b35;text-anchor:middle}.small{font:17px Arial,sans-serif;fill:#52645f;text-anchor:middle}.inverse{fill:#fff}.eyebrow{font:700 15px Arial,sans-serif;fill:#6f9b7d;text-anchor:middle;letter-spacing:.12em}
+  </style>
+  <rect class="bg" width="1200" height="640" rx="28"/>
+  <text class="eyebrow" x="600" y="48">EVIDENCE TO INSTITUTIONAL DECISION</text>
+  <path class="line" d="M270 170 C390 170 390 245 475 245"/><path class="line" d="M270 430 C390 430 390 335 475 335"/>
+  <path class="line" d="M725 290 C825 290 820 150 910 150"/><path class="line" d="M725 290 C825 290 820 290 910 290"/><path class="line" d="M725 290 C825 290 820 430 910 430"/>
+  <g><rect class="node" x="55" y="100" width="215" height="140" rx="18"/><text class="label" x="162" y="160">Regional data</text><text class="small" x="162" y="194">Economic · climate</text><text class="small" x="162" y="218">security · geospatial</text></g>
+  <g><rect class="node" x="55" y="360" width="215" height="140" rx="18"/><text class="label" x="162" y="420">Expert knowledge</text><text class="small" x="162" y="454">Institutions · history</text><text class="small" x="162" y="478">field evidence</text></g>
+  <g><rect class="core" x="475" y="190" width="250" height="200" rx="22"/><text class="eyebrow inverse" x="600" y="238">FORESIGHT LAB</text><text class="label inverse" x="600" y="285">Validate</text><text class="small inverse" x="600" y="320">Model · compare</text><text class="small inverse" x="600" y="348">test · interpret</text></g>
+  <g><rect class="output" x="910" y="85" width="235" height="130" rx="18"/><text class="label" x="1027" y="143">Scenarios</text><text class="small" x="1027" y="177">Alternative futures</text></g>
+  <g><rect class="output" x="910" y="225" width="235" height="130" rx="18"/><text class="label" x="1027" y="283">Maps and warning</text><text class="small" x="1027" y="317">Indicators · monitoring</text></g>
+  <g><rect class="output" x="910" y="365" width="235" height="130" rx="18"/><text class="label" x="1027" y="423">Decision support</text><text class="small" x="1027" y="457">Options · trade-offs</text></g>
+  <text class="small" x="600" y="585">Assumptions, limitations, uncertainty, and model behavior remain documented throughout.</text>
+</svg>

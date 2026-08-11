@@ -3,6 +3,7 @@
   --blue: #0b332d;
   --white: #fff;
   --mist: #fff;
+  --light-green: #e2f0e8;
   --ink: #111;
   --muted: #333;
   --line: #cad5d2;
@@ -256,6 +257,7 @@ h2 {
   min-height: 270px;
   display: flex;
   flex-direction: column;
+  position: relative;
   transition:
     background-color 0.2s ease,
     color 0.2s ease,
@@ -264,10 +266,11 @@ h2 {
 }
 .card:hover,
 .card:focus-visible {
-  background: var(--navy);
-  color: var(--white);
-  transform: translateY(-6px);
+  background: var(--light-green);
+  color: var(--ink);
+  transform: translateY(-6px) scale(1.04);
   box-shadow: 0 16px 34px rgba(11, 51, 45, 0.2);
+  z-index: 2;
   outline: none;
 }
 .card span {
@@ -291,7 +294,7 @@ h2 {
 .card:hover b,
 .card:focus-visible h3,
 .card:focus-visible b {
-  color: var(--white);
+  color: var(--navy);
 }
 .card b {
   color: var(--blue);

@@ -2,7 +2,7 @@
 <title id="title">Horn of Africa, Red Sea, and Gulf regional system</title>
 <desc id="desc">A regional systems map showing the Horn of Africa as a unified region connected to Egypt, Israel, the Red Sea, Gulf states, major ports, and the Suez, Bab el-Mandeb, and Hormuz choke points. Somalia is shown as one sovereign country without an internal international boundary.</desc>
 <style>
-  .ocean{fill:#e8f2f2}.country{stroke:#fff;stroke-width:2.2;stroke-linejoin:round}.horn{fill:#6f9b7d}.gulf{fill:#c5a65a}.partner{fill:#aabbb4}.country-label{font:700 13px Arial,sans-serif;fill:#132f2a;text-anchor:middle;letter-spacing:.05em;paint-order:stroke;stroke:#fff;stroke-width:3px}.sea-label{font:italic 700 20px Georgia,serif;fill:#457b82;text-anchor:middle;letter-spacing:.08em}.port circle{fill:#fff;stroke:#0b332d;stroke-width:3}.port text{font:600 11px Arial,sans-serif;fill:#173b35;paint-order:stroke;stroke:#fff;stroke-width:3px}.route{fill:none;stroke:#fff;stroke-width:3;stroke-dasharray:9 8;opacity:.9}.choke{fill:#b34d3d;stroke:#fff;stroke-width:3}.choke-label{font:700 13px Arial,sans-serif;fill:#8e382e;paint-order:stroke;stroke:#fff;stroke-width:4px}.legend{font:600 15px Arial,sans-serif;fill:#173b35}.small{font:12px Arial,sans-serif;fill:#52645f}
+  .ocean{fill:#e8f2f2}.country{stroke:#fff;stroke-width:2.2;stroke-linejoin:round}.horn{fill:#6f9b7d}.gulf{fill:#c5a65a}.partner{fill:#aabbb4}.country-label{font:700 12px Arial,sans-serif;fill:#132f2a;text-anchor:middle;letter-spacing:.04em;paint-order:stroke;stroke:#fff;stroke-width:3px}.sea-label{font:italic 700 17px Georgia,serif;fill:#457b82;text-anchor:middle;letter-spacing:.09em}.port{fill:#fff;stroke:#0b332d;stroke-width:2.5}.route{fill:none;stroke:#fff;stroke-width:3;stroke-dasharray:9 8;opacity:.9}.choke{fill:#b34d3d;stroke:#fff;stroke-width:3}.choke-num{font:700 12px Arial,sans-serif;fill:#fff;text-anchor:middle;dominant-baseline:middle}.legend{font:600 15px Arial,sans-serif;fill:#173b35}.panel-head{font:700 12px Arial,sans-serif;fill:#6f9b7d;letter-spacing:.12em}.panel-title{font:700 17px Arial,sans-serif;fill:#173b35}.small{font:12px Arial,sans-serif;fill:#52645f}.panel-line{stroke:#d4dfdc;stroke-width:1}
 </style>
 <rect class="ocean" width="1500" height="980" rx="24"/>
 <path class="country horn" d="M736.5,840.038L712.182,823.132L711.024,813.303L649.65,778.832L646.785,776.969L646.603,759.003L651.478,752.154L659.828,740.95L665.984,728.6L658.487,709.173L656.537,700.691L648.492,688.914L658.914,678.828L670.372,667.652L679.209,670.489L679.209,680.002L684.999,685.561L696.762,685.561L718.216,699.946L723.518,700.118L727.48,699.659L731.259,701.608L742.534,702.955L747.532,695.877L763.012,688.799L769.838,694.53L781.418,694.53L766.608,713.729L766.791,775.393L776.847,789.377L764.963,796.139L760.818,803.188L754.48,804.449L752.042,816.369L746.617,823.189L743.326,834.45Z"><title>Kenya</title></path>
@@ -35,33 +35,30 @@
 <text class="country-label" x="836.3" y="349.5">SAUDI ARABIA</text>
 <text class="country-label" x="851.6" y="496.8">YEMEN</text>
 <text class="country-label" x="1020.9" y="403.7">OMAN</text>
-<text class="country-label" x="992.1" y="352.9">UAE</text>
-<text class="country-label" x="939.6" y="329.2">QATAR</text>
 <text class="country-label" x="880.4" y="264.8">KUWAIT</text>
-<text class="country-label" x="928.6" y="317.7">BAHRAIN</text>
 <text class="country-label" x="665.4" y="225.9">ISRAEL</text>
 <text class="country-label" x="682.3" y="241.1">JORDAN</text>
-<text class="sea-label" x="736.4562450045241" y="405.351531278275" transform="rotate(-63 736.4562450045241 405.351531278275)">RED SEA</text>
-<text class="sea-label" x="898.981304950236" y="552.6398668540764" transform="rotate(-6 898.981304950236 552.6398668540764)">GULF OF ADEN</text>
-<text class="sea-label" x="949.770386183271" y="701.6211718043124" transform="rotate(0 949.770386183271 701.6211718043124)">INDIAN OCEAN</text>
-<text class="sea-label" x="1054.7344873982101" y="557.71877497738" transform="rotate(-8 1054.7344873982101 557.71877497738)">ARABIAN SEA</text>
-<text class="sea-label" x="927.7617843156224" y="298.69446068890153" transform="rotate(-15 927.7617843156224 298.69446068890153)">PERSIAN GULF</text>
-<g class="port"><circle cx="702.9" cy="428.7" r="4"/><text x="712.9" y="420.7" text-anchor="start">Port Sudan</text></g>
-<g class="port"><circle cx="740.7" cy="496.6" r="4"/><text x="750.7" y="509.6" text-anchor="start">Massawa</text></g>
-<g class="port"><circle cx="796.4" cy="540.6" r="4"/><text x="806.4" y="532.6" text-anchor="start">Assab</text></g>
-<g class="port"><circle cx="803.3" cy="564.7" r="4"/><text x="813.3" y="577.7" text-anchor="start">Djibouti</text></g>
-<g class="port"><circle cx="835.0" cy="584.1" r="4"/><text x="845.0" y="576.1" text-anchor="start">Berbera</text></g>
-<g class="port"><circle cx="905.4" cy="569.9" r="4"/><text x="895.4" y="582.9" text-anchor="end">Bosaso</text></g>
-<g class="port"><circle cx="840.4" cy="726.2" r="4"/><text x="850.4" y="718.2" text-anchor="start">Mogadishu</text></g>
-<g class="port"><circle cx="744.4" cy="829.4" r="4"/><text x="754.4" y="842.4" text-anchor="start">Mombasa</text></g>
-<g class="port"><circle cx="735.9" cy="397.1" r="4"/><text x="745.9" y="389.1" text-anchor="start">Jeddah</text></g>
-<g class="port"><circle cx="835.2" cy="544.3" r="4"/><text x="845.2" y="557.3" text-anchor="start">Aden</text></g>
-<g class="port"><circle cx="988.5" cy="472.7" r="4"/><text x="978.5" y="464.7" text-anchor="end">Salalah</text></g>
-<g class="port"><circle cx="1004.5" cy="337.8" r="4"/><text x="994.5" y="350.8" text-anchor="end">Jebel Ali</text></g>
-<g class="port"><circle cx="1026.5" cy="335.4" r="4"/><text x="1016.5" y="327.4" text-anchor="end">Fujairah</text></g>
-<g><circle class="choke" cx="623.8737816046297" cy="249.59834883030106" r="7"/><text class="choke-label" x="635.8737816046297" y="239.59834883030106">Suez Canal</text></g>
-<g><circle class="choke" cx="806.7144740435557" cy="547.8995526056599" r="7"/><text class="choke-label" x="820.7144740435557" y="573.8995526056599">Bab el-Mandeb</text></g>
-<g><circle class="choke" cx="1025.1075233456063" cy="311.3917309971602" r="7"/><text class="choke-label" x="1039.1075233456063" y="303.3917309971602">Strait of Hormuz</text></g>
-<g transform="translate(42 782)"><rect width="370" height="154" rx="14" fill="#fff" opacity=".94"/><circle cx="30" cy="34" r="10" fill="#6f9b7d"/><text class="legend" x="50" y="40">Horn of Africa and neighbors</text><circle cx="30" cy="70" r="10" fill="#c5a65a"/><text class="legend" x="50" y="76">Gulf and Arabian Peninsula</text><circle cx="30" cy="106" r="7" fill="#b34d3d"/><text class="legend" x="50" y="112">Strategic choke point</text><path d="M20 135h30" class="route" stroke="#457b82"/><text class="small" x="60" y="140">Principal maritime route</text></g>
-<text class="small" x="1450" y="944" text-anchor="end">Regional reference graphic · Horn of Africa Institute · 2026</text>
+<text class="sea-label" x="721.2195206346134" y="371.492143789585" transform="rotate(-63 721.2195206346134 371.492143789585)">RED SEA</text>
+<text class="sea-label" x="976.8578961742229" y="605.121917461546" transform="rotate(-6 976.8578961742229 605.121917461546)">GULF OF ADEN</text>
+<text class="sea-label" x="949.770386183271" y="733.787589918568" transform="rotate(0 949.770386183271 733.787589918568)">INDIAN OCEAN</text>
+<text class="sea-label" x="1063.1993342703825" y="537.403142484166" transform="rotate(-8 1063.1993342703825 537.403142484166)">ARABIAN SEA</text>
+<text class="sea-label" x="936.226631187795" y="286.84367506786" transform="rotate(-15 936.226631187795 286.84367506786)">PERSIAN GULF</text>
+<circle class="port" cx="702.9" cy="428.7" r="4"><title>Selected principal port</title></circle>
+<circle class="port" cx="740.7" cy="496.6" r="4"><title>Selected principal port</title></circle>
+<circle class="port" cx="796.4" cy="540.6" r="4"><title>Selected principal port</title></circle>
+<circle class="port" cx="803.3" cy="564.7" r="4"><title>Selected principal port</title></circle>
+<circle class="port" cx="835.0" cy="584.1" r="4"><title>Selected principal port</title></circle>
+<circle class="port" cx="905.4" cy="569.9" r="4"><title>Selected principal port</title></circle>
+<circle class="port" cx="840.4" cy="726.2" r="4"><title>Selected principal port</title></circle>
+<circle class="port" cx="744.4" cy="829.4" r="4"><title>Selected principal port</title></circle>
+<circle class="port" cx="735.9" cy="397.1" r="4"><title>Selected principal port</title></circle>
+<circle class="port" cx="835.2" cy="544.3" r="4"><title>Selected principal port</title></circle>
+<circle class="port" cx="988.5" cy="472.7" r="4"><title>Selected principal port</title></circle>
+<circle class="port" cx="1004.5" cy="337.8" r="4"><title>Selected principal port</title></circle>
+<g><circle class="choke" cx="623.8737816046297" cy="249.59834883030106" r="10"/><text class="choke-num" x="623.8737816046297" y="250.59834883030106">1</text></g>
+<g><circle class="choke" cx="806.7144740435557" cy="547.8995526056599" r="10"/><text class="choke-num" x="806.7144740435557" y="548.8995526056599">2</text></g>
+<g><circle class="choke" cx="1025.1075233456063" cy="311.3917309971602" r="10"/><text class="choke-num" x="1025.1075233456063" y="312.3917309971602">3</text></g>
+<g transform="translate(42 748)"><rect width="400" height="188" rx="14" fill="#fff" opacity=".96"/><text class="panel-head" x="24" y="31">MAP KEY</text><circle cx="30" cy="58" r="9" fill="#6f9b7d"/><text class="legend" x="50" y="64">Horn of Africa and neighbors</text><circle cx="30" cy="92" r="9" fill="#c5a65a"/><text class="legend" x="50" y="98">Gulf and Arabian Peninsula</text><circle cx="30" cy="126" r="5" class="port"/><text class="legend" x="50" y="132">Selected principal port</text><path d="M20 160h30" class="route" stroke="#457b82"/><text class="small" x="60" y="165">Principal maritime route</text></g>
+<g transform="translate(1070 615)"><rect width="380" height="321" rx="14" fill="#fff" opacity=".96"/><text class="panel-head" x="24" y="34">REFERENCE</text><text class="panel-title" x="24" y="66">Strategic choke points</text><text class="legend" x="24" y="98">1  Suez Canal</text><text class="legend" x="24" y="128">2  Bab el-Mandeb</text><text class="legend" x="24" y="158">3  Strait of Hormuz</text><line class="panel-line" x1="24" y1="180" x2="356" y2="180"/><text class="panel-title" x="24" y="214">Gulf states in scope</text><text class="small" x="24" y="244">Bahrain · Kuwait · Oman · Qatar</text><text class="small" x="24" y="268">Saudi Arabia · United Arab Emirates</text><line class="panel-line" x1="24" y1="287" x2="356" y2="287"/><text class="small" x="24" y="310">Ports are marked without city labels</text></g>
+<text class="small" x="1450" y="42" text-anchor="end">Horn of Africa Institute · Regional reference graphic · 2026</text>
 </svg>

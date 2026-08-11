@@ -241,22 +241,34 @@ h2 {
 .cards {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  border-left: 1px solid var(--line);
-  border-top: 1px solid var(--line);
+  gap: 24px;
   margin-top: 45px;
 }
 .card {
   padding: 38px;
-  border-right: 1px solid var(--line);
-  border-bottom: 1px solid var(--line);
+  background: var(--white);
+  border: 1px solid var(--navy);
+  border-top: 6px solid var(--navy);
+  border-radius: 4px;
+  box-shadow: 0 10px 24px rgba(11, 51, 45, 0.08);
   text-decoration: none;
   color: var(--ink);
   min-height: 270px;
-  transition: 0.2s;
+  display: flex;
+  flex-direction: column;
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease,
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
 }
-.card:hover {
-  background: var(--mist);
-  transform: translateY(-2px);
+.card:hover,
+.card:focus-visible {
+  background: var(--navy);
+  color: var(--white);
+  transform: translateY(-6px);
+  box-shadow: 0 16px 34px rgba(11, 51, 45, 0.2);
+  outline: none;
 }
 .card span {
   font-size: 0.78rem;
@@ -271,6 +283,15 @@ h2 {
   color: var(--navy);
   font-weight: 400;
   margin: 16px 0;
+}
+.card p {
+  flex: 1;
+}
+.card:hover h3,
+.card:hover b,
+.card:focus-visible h3,
+.card:focus-visible b {
+  color: var(--white);
 }
 .card b {
   color: var(--blue);

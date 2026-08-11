@@ -9,6 +9,7 @@
       content="The Horn of Africa Institute produces independent research and policy analysis on peace and security, economic development, governance, climate resilience, and regional transformation."
     />
     <link rel="stylesheet" href="style.css" />
+    <script src="systems-explorer.js" defer></script>
   </head>
   <body>
     <header>
@@ -163,7 +164,33 @@
             >Explore the initiative →</a
           >
         </div>
-        <img class="initiative-visual" src="regional-flows.svg" alt="Reciprocal flows connecting Gulf institutions, the Red Sea, Horn ports, and inland markets" />
+        <section class="systems-explorer" data-systems-explorer aria-labelledby="systems-title">
+          <div class="systems-toolbar">
+            <div><p class="kicker">Interactive regional system</p><h3 id="systems-title">Trace how authority, resources, and risk move across the region</h3></div>
+            <div class="flow-controls" aria-label="Choose flow direction">
+              <button type="button" class="flow-control is-active" data-flow="all" aria-pressed="true">All flows</button>
+              <button type="button" class="flow-control" data-flow="outbound" aria-pressed="false">Toward the interior</button>
+              <button type="button" class="flow-control" data-flow="return" aria-pressed="false">Return flows</button>
+            </div>
+          </div>
+          <p class="flow-caption outbound-caption">Capital, energy, infrastructure, security cooperation, and diplomacy</p>
+          <div class="systems-chain">
+            <button type="button" class="system-node gulf-node is-active" data-system="gulf" aria-pressed="true"><span>Gulf</span><strong>Institutions</strong><small>Investment · energy<br />finance · diplomacy</small></button>
+            <span class="system-link" data-link="gulf-redsea" aria-hidden="true"><i class="outbound"></i><i class="return"></i></span>
+            <button type="button" class="system-node sea-node" data-system="redsea" aria-pressed="false"><span>Red Sea</span><strong>Maritime system</strong><small>Shipping · choke points<br />security · cables</small></button>
+            <span class="system-link" data-link="redsea-horn" aria-hidden="true"><i class="outbound"></i><i class="return"></i></span>
+            <button type="button" class="system-node horn-node" data-system="horn" aria-pressed="false"><span>Horn of Africa</span><strong>Ports and corridors</strong><small>Logistics · infrastructure<br />public authority</small></button>
+            <span class="system-link" data-link="horn-interior" aria-hidden="true"><i class="outbound"></i><i class="return"></i></span>
+            <button type="button" class="system-node interior-node" data-system="interior" aria-pressed="false"><span>Interior</span><strong>Markets and communities</strong><small>Trade · food · mobility<br />institutions · livelihoods</small></button>
+          </div>
+          <p class="flow-caption return-caption">Trade, livestock, food, labor, migration, information, and political response</p>
+          <div class="system-detail" aria-live="polite">
+            <p class="system-detail-label" data-detail-label>Gulf institutions</p>
+            <h4 data-detail-title>Finance and organize cross-regional activity</h4>
+            <p data-detail-copy>Governments, development funds, investors, and firms direct capital, energy relationships, infrastructure projects, security cooperation, and diplomacy toward the Red Sea and Horn of Africa.</p>
+            <div class="system-tags" data-detail-tags><span>Investment</span><span>Energy</span><span>Finance</span><span>Diplomacy</span></div>
+          </div>
+        </section>
       </section>
       <section class="map-section">
         <div>

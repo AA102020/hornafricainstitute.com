@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1300 560" role="img" aria-labelledby="title desc">
+  <title id="title">Red Sea and Gulf regional connectivity</title>
+  <desc id="desc">A reciprocal system connecting Gulf institutions, maritime routes, Horn ports and corridors, and inland markets through investment, energy, food, trade, migration, and diplomacy.</desc>
+  <defs><marker id="a" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0 0L0 6L9 3z" fill="#c5a65a"/></marker><marker id="b" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0 0L0 6L9 3z" fill="#6f9b7d"/></marker></defs>
+  <style>.bg{fill:#f3f6f5}.box{fill:#fff;stroke:#cad5d2;stroke-width:2}.gulf{fill:#f4ecd7;stroke:#c5a65a}.horn{fill:#e2f0e8;stroke:#6f9b7d}.sea{fill:#e7f2f3;stroke:#60919a}.t{font:700 23px Arial,sans-serif;fill:#173b35;text-anchor:middle}.s{font:16px Arial,sans-serif;fill:#52645f;text-anchor:middle}.flow1{fill:none;stroke:#c5a65a;stroke-width:4;marker-end:url(#a)}.flow2{fill:none;stroke:#6f9b7d;stroke-width:4;marker-end:url(#b)}.tag{font:700 14px Arial,sans-serif;fill:#52645f;text-anchor:middle;letter-spacing:.06em}</style>
+  <rect class="bg" width="1300" height="560" rx="26"/>
+  <g><rect class="box gulf" x="55" y="160" width="250" height="190" rx="22"/><text class="tag" x="180" y="202">GULF</text><text class="t" x="180" y="250">Institutions</text><text class="s" x="180" y="286">Investment · energy</text><text class="s" x="180" y="314">finance · diplomacy</text></g>
+  <g><rect class="box sea" x="365" y="160" width="250" height="190" rx="22"/><text class="tag" x="490" y="202">RED SEA</text><text class="t" x="490" y="250">Maritime system</text><text class="s" x="490" y="286">Shipping · choke points</text><text class="s" x="490" y="314">security · cables</text></g>
+  <g><rect class="box horn" x="685" y="160" width="250" height="190" rx="22"/><text class="tag" x="810" y="202">HORN OF AFRICA</text><text class="t" x="810" y="250">Ports and corridors</text><text class="s" x="810" y="286">Logistics · infrastructure</text><text class="s" x="810" y="314">public authority</text></g>
+  <g><rect class="box" x="995" y="160" width="250" height="190" rx="22"/><text class="tag" x="1120" y="202">INTERIOR</text><text class="t" x="1120" y="250">Markets and communities</text><text class="s" x="1120" y="286">Trade · food · mobility</text><text class="s" x="1120" y="314">institutions · livelihoods</text></g>
+  <path class="flow1" d="M305 225H365"/><path class="flow1" d="M615 225H685"/><path class="flow1" d="M935 225H995"/>
+  <path class="flow2" d="M995 315H935"/><path class="flow2" d="M685 315H615"/><path class="flow2" d="M365 315H305"/>
+  <text class="s" x="650" y="87">Capital, energy, infrastructure, security cooperation, and diplomacy</text>
+  <text class="s" x="650" y="476">Trade, livestock, food, labor, migration, information, and political response</text>
+</svg>

@@ -59,3 +59,48 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+
+  smoke-test:
+    name: Production smoke test
+    runs-on: ubuntu-latest
+    needs: deploy
+    steps:
+      - name: Verify live pages and publication assets
+        env:
+          BASE_URL: https://hornafricainstitute.com
+          CACHE_BUSTER: ${{ github.sha }}
+        run: |
+          set -euo pipefail
+
+          check_url() {
+            local path="$1"
+            echo "Checking ${BASE_URL}${path}"
+            curl --fail --silent --show-error --location \
+              --retry 6 --retry-delay 10 --retry-all-errors \
+              "${BASE_URL}${path}?v=${CACHE_BUSTER}" > /dev/null
+          }
+
+          check_url "/"
+          check_url "/publications.html"
+          check_url "/publications/hai-cm-2026-18.html"
+          check_url "/publications/commentary/toward-a-gulf-horn-partnership.html"
+          check_url "/publications/HAI-CM-2026-18.pdf"
+          check_url "/publications/HAI-CM-2025-22.pdf"
+
+      - name: Verify live Commentary catalogue
+        env:
+          URL: https://hornafricainstitute.com/publications.html
+          CACHE_BUSTER: ${{ github.sha }}
+        run: |
+          set -euo pipefail
+          page="$(curl --fail --silent --show-error --location \
+            --retry 6 --retry-delay 10 --retry-all-errors \
+            "${URL}?v=${CACHE_BUSTER}")"
+
+          grep -Fq "How Renewed Red Sea Insecurity Is Reshaping Regional Alignments" <<< "$page"
+          grep -Fq "Toward a Gulf-Horn Partnership: Opportunities, Institutional Constraints, and Political Risks" <<< "$page"
+          grep -Fq "Why Competition over Red Sea Ports Has Become a Regional Power Contest" <<< "$page"
+          grep -Fq "What to Watch as Regional Powers Reassess Their Horn of Africa Strategies" <<< "$page"
+          grep -Fq "Sudan’s Worsening Crisis: Regional Consequences and the Limits of International Response" <<< "$page"
+
+          echo "Production smoke test passed: live Commentary catalogue is complete."

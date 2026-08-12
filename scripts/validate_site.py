@@ -6,6 +6,7 @@ Checks:
 2. Required Commentary catalogue entries remain present in publications.html.
 3. Published Commentary landing pages and PDFs exist.
 4. Publication identifiers follow the institutional series policy.
+5. The authoritative publication registry matches the website catalogue and assets.
 
 Uses only the Python standard library so GitHub Actions requires no package install.
 """
@@ -21,6 +22,7 @@ from urllib.parse import unquote, urlsplit
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 IDENTIFIER_POLICY = ROOT / "publication-identifiers.json"
+PUBLICATION_REGISTRY = ROOT / "data" / "publications.json"
 
 REQUIRED_COMMENTARY = (
     "How Renewed Red Sea Insecurity Is Reshaping Regional Alignments",
@@ -45,6 +47,7 @@ SERIES = (
     "commentary",
     "special-reports",
 )
+VALID_STATUSES = {"locked", "published"}
 
 
 class LinkParser(html.parser.HTMLParser):
@@ -115,6 +118,12 @@ def load_identifier_policy() -> dict[str, dict[str, str]]:
     return json.loads(IDENTIFIER_POLICY.read_text(encoding="utf-8"))
 
 
+def load_publication_registry() -> dict:
+    if not PUBLICATION_REGISTRY.exists():
+        raise FileNotFoundError("data/publications.json is missing")
+    return json.loads(PUBLICATION_REGISTRY.read_text(encoding="utf-8"))
+
+
 def check_identifier_policy() -> list[str]:
     errors: list[str] = []
     try:
@@ -147,6 +156,96 @@ def check_identifier_policy() -> list[str]:
     return errors
 
 
+def check_registry(catalogue_text: str) -> list[str]:
+    errors: list[str] = []
+    try:
+        registry = load_publication_registry()
+        policy = load_identifier_policy()
+    except Exception as exc:
+        return [f"Publication registry cannot be validated: {exc}"]
+
+    if registry.get("schema_version") != 1:
+        errors.append("Publication registry schema_version must be 1")
+    if registry.get("identifier_policy") != "publication-identifiers.json":
+        errors.append("Publication registry identifier_policy must reference publication-identifiers.json")
+
+    publications = registry.get("publications")
+    if not isinstance(publications, list):
+        return errors + ["Publication registry publications must be a list"]
+
+    seen_titles: set[tuple[str, str]] = set()
+    seen_ids: set[str] = set()
+
+    for index, item in enumerate(publications, start=1):
+        context = f"Registry item {index}"
+        if not isinstance(item, dict):
+            errors.append(f"{context} must be an object")
+            continue
+
+        series = item.get("series")
+        title = item.get("title")
+        status = item.get("status")
+        pub_id = item.get("id")
+
+        if series not in SERIES:
+            errors.append(f"{context} has invalid series: {series}")
+        if not isinstance(title, str) or not title.strip():
+            errors.append(f"{context} has no title")
+            continue
+        if status not in VALID_STATUSES:
+            errors.append(f"{context} has invalid status: {status}")
+
+        title_key = (str(series), title)
+        if title_key in seen_titles:
+            errors.append(f"Duplicate registry title in series {series}: {title}")
+        seen_titles.add(title_key)
+
+        if title not in catalogue_text:
+            errors.append(f"Registry title missing from publications.html: {title}")
+
+        subtitle = item.get("subtitle")
+        if subtitle and subtitle not in catalogue_text:
+            errors.append(f"Registry subtitle missing from publications.html: {subtitle}")
+
+        if pub_id is not None:
+            if not isinstance(pub_id, str):
+                errors.append(f"{context} identifier must be a string or null")
+            else:
+                if pub_id in seen_ids:
+                    errors.append(f"Duplicate publication identifier in registry: {pub_id}")
+                seen_ids.add(pub_id)
+                if series in policy:
+                    pattern = re.compile(policy[series]["pattern"])
+                    if not pattern.fullmatch(pub_id):
+                        errors.append(f"Identifier {pub_id} does not match series {series}")
+                if pub_id not in catalogue_text:
+                    errors.append(f"Published identifier missing from publications.html: {pub_id}")
+
+        landing_page = item.get("landing_page")
+        pdf = item.get("pdf")
+        author = item.get("author")
+        publication_date = item.get("publication_date")
+
+        if status == "published":
+            for field_name, value in (
+                ("id", pub_id),
+                ("author", author),
+                ("publication_date", publication_date),
+                ("landing_page", landing_page),
+                ("pdf", pdf),
+            ):
+                if not value:
+                    errors.append(f"Published registry item missing {field_name}: {title}")
+            for field_name, value in (("landing_page", landing_page), ("pdf", pdf)):
+                if value and not (ROOT / value).exists():
+                    errors.append(f"Published registry {field_name} does not exist for {title}: {value}")
+        elif status == "locked":
+            if pub_id is not None or publication_date is not None or landing_page is not None or pdf is not None:
+                errors.append(f"Locked registry item has publication metadata assigned: {title}")
+
+    return errors
+
+
 def check_publications() -> list[str]:
     errors: list[str] = []
     catalogue = ROOT / "publications.html"
@@ -174,6 +273,7 @@ def check_publications() -> list[str]:
         if not any(pattern.fullmatch(code) for pattern in allowed_patterns):
             errors.append(f"Invalid HAI publication identifier in publications.html: {code}")
 
+    errors.extend(check_registry(text))
     return errors
 
 
@@ -187,7 +287,7 @@ def main() -> int:
 
     html_count = sum(1 for _ in ROOT.rglob("*.html"))
     print(f"SITE VALIDATION PASSED: {html_count} HTML files checked.")
-    print("Publication catalogue, assets, and identifier policy are valid.")
+    print("Publication catalogue, registry, assets, and identifier policy are valid.")
     return 0
 
 

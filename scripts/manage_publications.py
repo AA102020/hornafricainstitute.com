@@ -218,12 +218,7 @@ def check_series(text: str, series: str) -> list[str]:
     if not (article_start < content_start < content_end < article_end):
         errors.append(f"Boundary inconsistency: {series}")
     block = text[content_start:content_end]
-    if series == "commentary":
-        if "published-entry" not in block:
-            errors.append("Commentary has no published entries")
-        if "access-icon locked" not in block:
-            errors.append("Commentary has no locked entries")
-    elif "<ol>" not in block or "</ol>" not in block:
+    if "<ol>" not in block or "</ol>" not in block:
         errors.append(f"Series list missing ordered-list structure: {series}")
     return errors
 
@@ -255,7 +250,6 @@ def validate_candidate(text: str, registry: dict[str, Any]) -> None:
 
 def write_atomic(text: str, registry: dict[str, Any]) -> None:
     validate_candidate(text, registry)
-    # Each local write is atomic via replace; both candidates are fully validated first.
     catalogue_tmp = CATALOGUE.with_suffix(".html.tmp")
     registry_tmp = REGISTRY.with_suffix(".json.tmp")
     catalogue_tmp.write_text(text, encoding="utf-8")
@@ -306,7 +300,20 @@ def display_date(iso_date: str) -> str:
     return f"{parsed.strftime('%B')} {parsed.day}, {parsed.year}"
 
 
-def publish_commentary(
+def published_entry(title: str, href: str, code: str, shown_date: str, author: str) -> str:
+    return (
+        f'\n            <a class="published-entry" href="{html.escape(href, quote=True)}">\n'
+        '              <span class="publication-access"><span class="access-icon unlocked" role="img" '
+        'aria-label="Publicly available" title="Publicly available">&#128275;</span></span>\n'
+        f'              <span class="entry-type">{html.escape(code)} · {html.escape(shown_date)}</span>\n'
+        f'              <cite>{html.escape(title, quote=False)}</cite>\n'
+        f'              <span class="entry-author">{html.escape(author)}</span>\n'
+        '            </a>'
+    )
+
+
+def publish(
+    series: str,
     title: str,
     href: str,
     code: str,
@@ -315,7 +322,7 @@ def publish_commentary(
     pdf: str,
     display_date_override: str | None,
 ) -> int:
-    validate_identifier("commentary", code)
+    validate_identifier(series, code)
     try:
         dt.date.fromisoformat(date)
     except ValueError as exc:
@@ -323,41 +330,34 @@ def publish_commentary(
 
     text = read_catalogue()
     registry = load_registry()
-    idx = registry_index(registry, "commentary", title)
+    idx = registry_index(registry, series, title)
     if idx is None:
-        raise SystemExit(f"Commentary must exist in registry before publication: {title}")
+        raise SystemExit(f"Publication must exist in registry before publication: {title}")
     record = registry["publications"][idx]
     if record.get("status") == "published":
         expected = {"id": code, "author": author, "publication_date": date, "landing_page": href, "pdf": pdf}
         if all(record.get(k) == v for k, v in expected.items()):
-            print(f"No change: Commentary is already published with matching metadata: {title}")
+            print(f"No change: publication is already published with matching metadata: {title}")
             return 0
-        raise SystemExit(f"Commentary is already published with different metadata: {title}")
+        raise SystemExit(f"Publication is already published with different metadata: {title}")
 
     duplicate = [item for item in registry["publications"] if item.get("id") == code]
     if duplicate:
         raise SystemExit(f"Identifier already assigned in registry: {code}")
 
-    start, end = titles_bounds(text, "commentary")
+    start, end = titles_bounds(text, series)
     block = text[start:end]
     cleaned = remove_locked(block, title)
     if cleaned == block:
-        raise SystemExit(f"Locked Commentary entry not found in catalogue: {title}")
+        raise SystemExit(f"Locked publication entry not found in catalogue: {title}")
 
     shown_date = display_date_override or display_date(date)
-    escaped_title = html.escape(title, quote=False)
-    entry = (
-        f'\n            <a class="published-entry" href="{html.escape(href, quote=True)}">\n'
-        '              <span class="publication-access"><span class="access-icon unlocked" role="img" '
-        'aria-label="Publicly available" title="Publicly available">&#128275;</span></span>\n'
-        f'              <span class="entry-type">{html.escape(code)} · {html.escape(shown_date)}</span>\n'
-        f'              <cite>{escaped_title}</cite>\n'
-        f'              <span class="entry-author">{html.escape(author)}</span>\n'
-        '            </a>'
-    )
+    entry = published_entry(title, href, code, shown_date, author)
     ol_pos = cleaned.find("<ol>")
-    new_block = cleaned[:ol_pos] + entry + "\n            " + cleaned[ol_pos:] if ol_pos >= 0 else cleaned + entry
-    new_text = replace_targeted(text, "commentary", new_block)
+    if ol_pos < 0:
+        raise SystemExit(f"Ordered list missing in {series}")
+    new_block = cleaned[:ol_pos] + entry + "\n            " + cleaned[ol_pos:]
+    new_text = replace_targeted(text, series, new_block)
 
     record.update({
         "id": code,
@@ -368,7 +368,7 @@ def publish_commentary(
         "pdf": pdf,
     })
     write_atomic(new_text, registry)
-    print(f"Published Commentary atomically in registry and catalogue: {title}")
+    print(f"Published atomically in registry and {series}: {title}")
     return 0
 
 
@@ -377,19 +377,20 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--check", action="store_true", help="Validate registry/catalogue synchronization")
     sub = parser.add_subparsers(dest="command")
 
-    add = sub.add_parser("add-locked", help="Add a locked publication to registry and catalogue")
+    add = sub.add_parser("add-locked", help="Add one locked publication atomically")
     add.add_argument("--series", required=True, choices=SERIES)
     add.add_argument("--title", required=True)
     add.add_argument("--subtitle")
 
-    pub = sub.add_parser("publish-commentary", help="Publish an existing locked Commentary atomically")
+    pub = sub.add_parser("publish", help="Publish one existing locked publication atomically")
+    pub.add_argument("--series", required=True, choices=SERIES)
     pub.add_argument("--title", required=True)
     pub.add_argument("--href", required=True)
-    pub.add_argument("--pdf", required=True)
     pub.add_argument("--code", required=True)
     pub.add_argument("--date", required=True, help="Publication date in YYYY-MM-DD format")
-    pub.add_argument("--display-date", help="Optional display wording, e.g. 'Revised August 11, 2026'")
     pub.add_argument("--author", required=True)
+    pub.add_argument("--pdf", required=True)
+    pub.add_argument("--display-date", help="Optional display date text such as 'Revised August 11, 2026'")
     return parser
 
 
@@ -399,11 +400,18 @@ def main() -> int:
         return check_all()
     if args.command == "add-locked":
         return add_locked(args.series, args.title, args.subtitle)
-    if args.command == "publish-commentary":
-        return publish_commentary(
-            args.title, args.href, args.code, args.date, args.author, args.pdf, args.display_date
+    if args.command == "publish":
+        return publish(
+            args.series,
+            args.title,
+            args.href,
+            args.code,
+            args.date,
+            args.author,
+            args.pdf,
+            args.display_date,
         )
-    print("Choose --check, add-locked, or publish-commentary.", file=sys.stderr)
+    print("Choose --check, add-locked, or publish.", file=sys.stderr)
     return 2
 
 

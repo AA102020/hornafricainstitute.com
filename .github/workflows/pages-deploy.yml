@@ -28,7 +28,7 @@ jobs:
 
       - name: Validate site
         run: |
-          python scripts/manage_commentary.py --check
+          python scripts/manage_publications.py --check
           python scripts/validate_site.py
 
       - name: Configure Pages

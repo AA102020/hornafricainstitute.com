@@ -1,0 +1,32 @@
+{
+  "research-papers": {
+    "label": "HAI Research Papers",
+    "prefix": "HAI-RP",
+    "format": "HAI-RP-YYYY-##",
+    "pattern": "^HAI-RP-[0-9]{4}-[0-9]{2}$"
+  },
+  "working-papers": {
+    "label": "HAI Working Papers",
+    "prefix": "HAI-WP",
+    "format": "HAI-WP-YYYY-##",
+    "pattern": "^HAI-WP-[0-9]{4}-[0-9]{2}$"
+  },
+  "policy-briefs": {
+    "label": "HAI Policy Briefs",
+    "prefix": "HAI-PB",
+    "format": "HAI-PB-YYYY-##",
+    "pattern": "^HAI-PB-[0-9]{4}-[0-9]{2}$"
+  },
+  "commentary": {
+    "label": "HAI Commentary",
+    "prefix": "HAI-CM",
+    "format": "HAI-CM-YYYY-##",
+    "pattern": "^HAI-CM-[0-9]{4}-[0-9]{2}$"
+  },
+  "special-reports": {
+    "label": "HAI Special Reports",
+    "prefix": "HAI-SR",
+    "format": "HAI-SR-YYYY-##",
+    "pattern": "^HAI-SR-[0-9]{4}-[0-9]{2}$"
+  }
+}

@@ -1,0 +1,238 @@
+{
+  "schema_version": 1,
+  "publisher": "Horn of Africa Institute",
+  "identifier_policy": "publication-identifiers.json",
+  "publications": [
+    {
+      "id": null,
+      "series": "research-papers",
+      "title": "The Political Economy of Red Sea Ports: Investment, Infrastructure, and Regional Authority",
+      "subtitle": null,
+      "author": null,
+      "publication_date": null,
+      "status": "locked",
+      "landing_page": null,
+      "pdf": null
+    },
+    {
+      "id": null,
+      "series": "research-papers",
+      "title": "Maritime Security and Regional Order in the Red Sea, 2000–2026",
+      "subtitle": null,
+      "author": null,
+      "publication_date": null,
+      "status": "locked",
+      "landing_page": null,
+      "pdf": null
+    },
+    {
+      "id": null,
+      "series": "research-papers",
+      "title": "Gulf Investment and Economic Transformation in the Horn of Africa",
+      "subtitle": null,
+      "author": null,
+      "publication_date": null,
+      "status": "locked",
+      "landing_page": null,
+      "pdf": null
+    },
+    {
+      "id": null,
+      "series": "research-papers",
+      "title": "State Capacity, Conflict, and Institutional Change in the Horn of Africa",
+      "subtitle": null,
+      "author": null,
+      "publication_date": null,
+      "status": "locked",
+      "landing_page": null,
+      "pdf": null
+    },
+    {
+      "id": null,
+      "series": "working-papers",
+      "title": "Mapping Gulf Investment in the Horn of Africa: Actors, Sectors, and Geographic Patterns",
+      "subtitle": null,
+      "author": null,
+      "publication_date": null,
+      "status": "locked",
+      "landing_page": null,
+      "pdf": null
+    },
+    {
+      "id": null,
+      "series": "working-papers",
+      "title": "Ports, Corridors, and Regional Connectivity in the Horn of Africa: A Comparative Framework",
+      "subtitle": null,
+      "author": null,
+      "publication_date": null,
+      "status": "locked",
+      "landing_page": null,
+      "pdf": null
+    },
+    {
+      "id": null,
+      "series": "working-papers",
+      "title": "Measuring State Capacity in Conflict-Affected Horn of Africa Countries: Concepts, Indicators, and Data Constraints",
+      "subtitle": null,
+      "author": null,
+      "publication_date": null,
+      "status": "locked",
+      "landing_page": null,
+      "pdf": null
+    },
+    {
+      "id": null,
+      "series": "working-papers",
+      "title": "External Security Partnerships and Institutional Authority in the Red Sea Region",
+      "subtitle": null,
+      "author": null,
+      "publication_date": null,
+      "status": "locked",
+      "landing_page": null,
+      "pdf": null
+    },
+    {
+      "id": null,
+      "series": "working-papers",
+      "title": "Puntland’s Campaign Against ISIS: Security Operations, Institutional Capacity, and Regional Implications",
+      "subtitle": null,
+      "author": null,
+      "publication_date": null,
+      "status": "locked",
+      "landing_page": null,
+      "pdf": null
+    },
+    {
+      "id": null,
+      "series": "policy-briefs",
+      "title": "Securing Red Sea Shipping: Policy Options for Regional Coordination and Escalation Control",
+      "subtitle": null,
+      "author": null,
+      "publication_date": null,
+      "status": "locked",
+      "landing_page": null,
+      "pdf": null
+    },
+    {
+      "id": null,
+      "series": "policy-briefs",
+      "title": "Governing Gulf Investment in the Horn of Africa: Transparency, Local Benefits, and Institutional Capacity",
+      "subtitle": null,
+      "author": null,
+      "publication_date": null,
+      "status": "locked",
+      "landing_page": null,
+      "pdf": null
+    },
+    {
+      "id": null,
+      "series": "policy-briefs",
+      "title": "Strengthening Port and Corridor Governance in the Horn of Africa",
+      "subtitle": null,
+      "author": null,
+      "publication_date": null,
+      "status": "locked",
+      "landing_page": null,
+      "pdf": null
+    },
+    {
+      "id": null,
+      "series": "policy-briefs",
+      "title": "Supporting Puntland’s Campaign Against ISIS: Priorities for Security Assistance and Civilian Protection",
+      "subtitle": null,
+      "author": null,
+      "publication_date": null,
+      "status": "locked",
+      "landing_page": null,
+      "pdf": null
+    },
+    {
+      "id": null,
+      "series": "policy-briefs",
+      "title": "Responding to Sudan’s Regional Spillovers: Humanitarian Access, Border Stability, and Red Sea Security",
+      "subtitle": null,
+      "author": null,
+      "publication_date": null,
+      "status": "locked",
+      "landing_page": null,
+      "pdf": null
+    },
+    {
+      "id": "HAI-CM-2026-18",
+      "series": "commentary",
+      "title": "How Renewed Red Sea Insecurity Is Reshaping Regional Alignments",
+      "subtitle": null,
+      "author": "Abdul Ahmed",
+      "publication_date": "2026-08-11",
+      "status": "published",
+      "landing_page": "publications/hai-cm-2026-18.html",
+      "pdf": "publications/HAI-CM-2026-18.pdf"
+    },
+    {
+      "id": "HAI-CM-2025-22",
+      "series": "commentary",
+      "title": "Toward a Gulf-Horn Partnership: Opportunities, Institutional Constraints, and Political Risks",
+      "subtitle": null,
+      "author": "Abdul Ahmed",
+      "publication_date": "2025-12-10",
+      "status": "published",
+      "landing_page": "publications/commentary/toward-a-gulf-horn-partnership.html",
+      "pdf": "publications/HAI-CM-2025-22.pdf"
+    },
+    {
+      "id": null,
+      "series": "commentary",
+      "title": "Why Competition over Red Sea Ports Has Become a Regional Power Contest",
+      "subtitle": null,
+      "author": null,
+      "publication_date": null,
+      "status": "locked",
+      "landing_page": null,
+      "pdf": null
+    },
+    {
+      "id": null,
+      "series": "commentary",
+      "title": "What to Watch as Regional Powers Reassess Their Horn of Africa Strategies",
+      "subtitle": null,
+      "author": null,
+      "publication_date": null,
+      "status": "locked",
+      "landing_page": null,
+      "pdf": null
+    },
+    {
+      "id": null,
+      "series": "commentary",
+      "title": "Sudan’s Worsening Crisis: Regional Consequences and the Limits of International Response",
+      "subtitle": null,
+      "author": null,
+      "publication_date": null,
+      "status": "locked",
+      "landing_page": null,
+      "pdf": null
+    },
+    {
+      "id": null,
+      "series": "special-reports",
+      "title": "Regional Security Cooperation Report",
+      "subtitle": "Institutionalization Index and Comparative Measures",
+      "author": null,
+      "publication_date": null,
+      "status": "locked",
+      "landing_page": null,
+      "pdf": null
+    },
+    {
+      "id": null,
+      "series": "special-reports",
+      "title": "Red Sea Maritime Security Report",
+      "subtitle": "Security Index and Regional Trends",
+      "author": null,
+      "publication_date": null,
+      "status": "locked",
+      "landing_page": null,
+      "pdf": null
+    }
+  ]
+}

@@ -562,8 +562,7 @@ h2 {
 .publication-author,
 .entry-type,
 .entry-author,
-.series-standard,
-.forthcoming-label {
+.series-standard {
   color: var(--muted);
   font-size: 0.8rem;
   font-weight: 700;
@@ -654,14 +653,6 @@ h2 {
 .series-standard {
   margin-top: 28px;
 }
-.forthcoming-label {
-  margin: 0 0 18px;
-  text-transform: uppercase;
-  letter-spacing: 0.14em;
-}
-.forthcoming-label.secondary {
-  margin-top: 38px;
-}
 .series-titles ol {
   margin: 0;
   padding: 0;
@@ -669,18 +660,37 @@ h2 {
   border-top: 1px solid var(--line);
 }
 .series-titles li {
-  position: relative;
-  padding: 19px 12px 19px 34px;
+  display: grid;
+  grid-template-columns: 28px minmax(0, 1fr);
+  align-items: start;
+  gap: 12px;
+  padding: 19px 12px;
   border-bottom: 1px solid var(--line);
   color: var(--navy);
   font: 400 1.13rem/1.45 Georgia, serif;
 }
-.series-titles li::before {
-  content: "↗";
-  position: absolute;
-  left: 2px;
-  color: #708f87;
-  font-family: Arial, Helvetica, sans-serif;
+.access-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  font: 400 0.92rem/1 Arial, Helvetica, sans-serif;
+}
+.access-icon.locked {
+  background: #e6ecea;
+}
+.access-icon.unlocked {
+  background: #d8eee4;
+}
+.publication-access {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 2px;
+}
+.commentary-queue {
+  margin-top: 28px !important;
 }
 .series-titles cite,
 .published-entry cite {

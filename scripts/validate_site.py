@@ -5,6 +5,7 @@ Checks:
 1. Local href/src targets in HTML resolve to files in the repository.
 2. Required Commentary catalogue entries remain present in publications.html.
 3. Published Commentary landing pages and PDFs exist.
+4. Publication identifiers follow the institutional series policy.
 
 Uses only the Python standard library so GitHub Actions requires no package install.
 """
@@ -12,11 +13,14 @@ Uses only the Python standard library so GitHub Actions requires no package inst
 from __future__ import annotations
 
 import html.parser
+import json
 import pathlib
+import re
 import sys
 from urllib.parse import unquote, urlsplit
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
+IDENTIFIER_POLICY = ROOT / "publication-identifiers.json"
 
 REQUIRED_COMMENTARY = (
     "How Renewed Red Sea Insecurity Is Reshaping Regional Alignments",
@@ -34,6 +38,13 @@ REQUIRED_PUBLICATION_ASSETS = (
 )
 
 SKIP_SCHEMES = {"http", "https", "mailto", "tel", "data", "javascript"}
+SERIES = (
+    "research-papers",
+    "working-papers",
+    "policy-briefs",
+    "commentary",
+    "special-reports",
+)
 
 
 class LinkParser(html.parser.HTMLParser):
@@ -98,6 +109,44 @@ def check_links() -> list[str]:
     return errors
 
 
+def load_identifier_policy() -> dict[str, dict[str, str]]:
+    if not IDENTIFIER_POLICY.exists():
+        raise FileNotFoundError("publication-identifiers.json is missing")
+    return json.loads(IDENTIFIER_POLICY.read_text(encoding="utf-8"))
+
+
+def check_identifier_policy() -> list[str]:
+    errors: list[str] = []
+    try:
+        policy = load_identifier_policy()
+    except Exception as exc:
+        return [f"Identifier policy cannot be loaded: {exc}"]
+
+    for series in SERIES:
+        if series not in policy:
+            errors.append(f"Identifier policy missing series: {series}")
+            continue
+        rule = policy[series]
+        for field in ("label", "prefix", "format", "pattern"):
+            if not rule.get(field):
+                errors.append(f"Identifier policy missing {field} for {series}")
+
+    expected_formats = {
+        "research-papers": "HAI-RP-YYYY-##",
+        "working-papers": "HAI-WP-YYYY-##",
+        "policy-briefs": "HAI-PB-YYYY-##",
+        "commentary": "HAI-CM-YYYY-##",
+        "special-reports": "HAI-SR-YYYY-##",
+    }
+    for series, expected in expected_formats.items():
+        if policy.get(series, {}).get("format") != expected:
+            errors.append(
+                f"Identifier format mismatch for {series}: expected {expected}, "
+                f"found {policy.get(series, {}).get('format')}"
+            )
+    return errors
+
+
 def check_publications() -> list[str]:
     errors: list[str] = []
     catalogue = ROOT / "publications.html"
@@ -113,11 +162,23 @@ def check_publications() -> list[str]:
         if not (ROOT / rel).exists():
             errors.append(f"Required published asset missing: {rel}")
 
+    try:
+        policy = load_identifier_policy()
+    except Exception as exc:
+        errors.append(f"Identifier policy cannot be loaded: {exc}")
+        return errors
+
+    all_codes = re.findall(r"HAI-[A-Z]{2}-[0-9]{4}-[0-9]{2}", text)
+    allowed_patterns = [re.compile(rule["pattern"]) for rule in policy.values()]
+    for code in all_codes:
+        if not any(pattern.fullmatch(code) for pattern in allowed_patterns):
+            errors.append(f"Invalid HAI publication identifier in publications.html: {code}")
+
     return errors
 
 
 def main() -> int:
-    errors = check_links() + check_publications()
+    errors = check_links() + check_identifier_policy() + check_publications()
     if errors:
         print("SITE VALIDATION FAILED")
         for error in errors:
@@ -126,7 +187,7 @@ def main() -> int:
 
     html_count = sum(1 for _ in ROOT.rglob("*.html"))
     print(f"SITE VALIDATION PASSED: {html_count} HTML files checked.")
-    print("Required Commentary catalogue entries and publication assets are present.")
+    print("Publication catalogue, assets, and identifier policy are valid.")
     return 0
 
 

@@ -25,5 +25,8 @@ jobs:
         with:
           python-version: '3.12'
 
+      - name: Validate safe Commentary editing boundaries
+        run: python scripts/manage_commentary.py --check
+
       - name: Validate HTML links and publication catalogue
         run: python scripts/validate_site.py

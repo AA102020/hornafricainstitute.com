@@ -10,19 +10,21 @@ Supported series:
 
 The tool locates exactly one series section and rewrites only that section's
 .series-titles block. Content outside the requested block must remain byte-for-byte
-unchanged.
+unchanged. Publication identifiers are governed by publication-identifiers.json.
 """
 
 from __future__ import annotations
 
 import argparse
 import html
+import json
 import pathlib
 import re
 import sys
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 CATALOGUE = ROOT / "publications.html"
+IDENTIFIER_POLICY = ROOT / "publication-identifiers.json"
 TITLES_START = '<div class="series-titles">'
 SERIES = (
     "research-papers",
@@ -31,6 +33,29 @@ SERIES = (
     "commentary",
     "special-reports",
 )
+
+
+def load_identifier_policy() -> dict[str, dict[str, str]]:
+    if not IDENTIFIER_POLICY.exists():
+        raise SystemExit("publication-identifiers.json is missing")
+    policy = json.loads(IDENTIFIER_POLICY.read_text(encoding="utf-8"))
+    if tuple(policy.keys()) != SERIES:
+        missing = [series for series in SERIES if series not in policy]
+        extra = [series for series in policy if series not in SERIES]
+        if missing or extra:
+            raise SystemExit(f"Identifier policy series mismatch. Missing={missing}, extra={extra}")
+    return policy
+
+
+def validate_identifier(series: str, code: str) -> str:
+    policy = load_identifier_policy()
+    rule = policy[series]
+    pattern = rule["pattern"]
+    if re.fullmatch(pattern, code) is None:
+        raise SystemExit(
+            f"Invalid identifier for {series}: {code}. Required format: {rule['format']}"
+        )
+    return code
 
 
 def read_catalogue() -> str:
@@ -103,17 +128,34 @@ def check_series(text: str, series: str) -> list[str]:
     return errors
 
 
+def check_identifiers() -> list[str]:
+    errors: list[str] = []
+    policy = load_identifier_policy()
+    text = read_catalogue()
+    for series in SERIES:
+        start, end = article_bounds(text, series)
+        block = text[start:end]
+        found = re.findall(r"HAI-[A-Z]{2}-[0-9]{4}-[0-9]{2}", block)
+        for code in found:
+            if re.fullmatch(policy[series]["pattern"], code) is None:
+                errors.append(
+                    f"Identifier {code} appears in {series}, expected {policy[series]['format']}"
+                )
+    return errors
+
+
 def check_all() -> int:
     text = read_catalogue()
     errors: list[str] = []
     for series in SERIES:
         errors.extend(check_series(text, series))
+    errors.extend(check_identifiers())
     if errors:
         print("PUBLICATION MANAGER CHECK FAILED")
         for error in errors:
             print(f"- {error}")
         return 1
-    print("PUBLICATION MANAGER CHECK PASSED: all targeted editing boundaries are valid.")
+    print("PUBLICATION MANAGER CHECK PASSED: editing boundaries and identifier formats are valid.")
     return 0
 
 
@@ -159,6 +201,7 @@ def remove_locked(block: str, title: str) -> str:
 
 
 def publish_commentary(title: str, href: str, code: str, date: str, author: str) -> int:
+    validate_identifier("commentary", code)
     text = read_catalogue()
     start, end = titles_bounds(text, "commentary")
     block = text[start:end]
@@ -190,7 +233,7 @@ def publish_commentary(title: str, href: str, code: str, date: str, author: str)
 
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--check", action="store_true", help="Validate all safe editing boundaries")
+    parser.add_argument("--check", action="store_true", help="Validate all safe editing boundaries and identifiers")
     sub = parser.add_subparsers(dest="command")
 
     add = sub.add_parser("add-locked", help="Add a locked title to one series")
